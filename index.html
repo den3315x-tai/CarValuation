@@ -39,24 +39,20 @@
                 <input id="receivedDate" type="text" placeholder="例如：5/21" />
               </label>
               <label>
-                <span>車型</span>
-                <input id="model" type="text" placeholder="例如：VIOS" required />
-              </label>
-              <label>
                 <span>年份</span>
                 <input id="year" type="text" placeholder="例如：2021 或 19/12" />
               </label>
               <label>
-                <span>版本</span>
-                <input id="version" type="text" placeholder="例如：經典版" />
-              </label>
-              <label>
-                <span>顏色</span>
-                <input id="color" type="text" placeholder="例如：銀" />
+                <span>車型</span>
+                <input id="model" type="text" placeholder="例如：VIOS" required />
               </label>
               <label>
                 <span>里程數</span>
                 <input id="km" type="number" min="0" step="0.1" placeholder="例如：5.8" />
+              </label>
+              <label>
+                <span>CC數</span>
+                <input id="cc" type="text" placeholder="例如：1800" />
               </label>
               <label>
                 <span>車況</span>
@@ -69,16 +65,28 @@
                 </select>
               </label>
               <label>
+                <span>顏色</span>
+                <input id="color" type="text" placeholder="例如：銀" />
+              </label>
+              <label>
+                <span>版本</span>
+                <input id="version" type="text" placeholder="例如：經典版" />
+              </label>
+              <label>
                 <span>權威</span>
                 <input id="authority" type="text" placeholder="例如：93" />
               </label>
               <label>
-                <span>收購價錢</span>
-                <input id="purchasePrice" type="text" placeholder="例如：90內" />
+                <span>報價</span>
+                <select id="quote">
+                  <option value="">請選擇</option>
+                  <option>Y</option>
+                  <option>N</option>
+                </select>
               </label>
               <label>
-                <span>報價與否</span>
-                <input id="quote" type="text" placeholder="例如：Y 或 N" />
+                <span>收購價錢</span>
+                <input id="purchasePrice" type="text" placeholder="例如：90內" />
               </label>
               <label>
                 <span>實際成交價</span>
@@ -91,10 +99,6 @@
               <label>
                 <span>詢問</span>
                 <input id="inquiry" type="text" placeholder="例如：M、A、B" />
-              </label>
-              <label>
-                <span>獎金</span>
-                <input id="bonus" type="text" />
               </label>
               <label>
                 <span>備注</span>
@@ -111,6 +115,10 @@
               <label>
                 <span>聯絡方式</span>
                 <input id="contact" type="text" placeholder="例如：0912-345-678" />
+              </label>
+              <label>
+                <span>獎金</span>
+                <input id="bonus" type="text" />
               </label>
             </div>
             <div class="form-actions">
@@ -138,23 +146,24 @@
                 <tr>
                   <th>來源</th>
                   <th>進件日</th>
-                  <th>車型</th>
                   <th>年份</th>
-                  <th>版本</th>
-                  <th>顏色</th>
+                  <th>車型</th>
                   <th>里程數</th>
+                  <th>CC數</th>
                   <th>車況</th>
+                  <th>顏色</th>
+                  <th>版本</th>
                   <th>權威</th>
+                  <th>報價</th>
                   <th>收購價錢</th>
-                  <th>報價與否</th>
                   <th>實際成交價</th>
                   <th>賣出價</th>
                   <th>詢問</th>
-                  <th>獎金</th>
                   <th>備注</th>
                   <th>整理項目</th>
                   <th>賣家</th>
                   <th>聯絡方式</th>
+                  <th>獎金</th>
                   <th>操作</th>
                 </tr>
               </thead>
@@ -179,23 +188,24 @@
                   <th>來源</th>
                   <th>進件日</th>
                   <th>買進日</th>
-                  <th>車型</th>
                   <th>年份</th>
-                  <th>版本</th>
-                  <th>顏色</th>
+                  <th>車型</th>
                   <th>里程數</th>
+                  <th>CC數</th>
                   <th>車況</th>
+                  <th>顏色</th>
+                  <th>版本</th>
                   <th>權威</th>
+                  <th>報價</th>
                   <th>收購價錢</th>
-                  <th>報價與否</th>
                   <th>實際成交價</th>
                   <th>賣出價</th>
                   <th>詢問</th>
-                  <th>獎金</th>
                   <th>備注</th>
                   <th>整理項目</th>
                   <th>賣家</th>
                   <th>聯絡方式</th>
+                  <th>獎金</th>
                   <th>操作</th>
                 </tr>
               </thead>
