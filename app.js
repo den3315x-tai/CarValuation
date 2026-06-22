@@ -1,5 +1,5 @@
 const STORAGE_KEY = "carvaluation.records.v1";
-const API_URL = "https://script.google.com/macros/s/AKfycbyHrZckfJ1fCsthcVQcL20_3GS_skljSBUJ5UU6Jko5uBExg505lIWICW_lxSZcISCIDg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbz1D4I6x_XCcKXXIC1gSk8a6EvNE5v10prqSUrNo9du8e4BSbERnlJAhdC6LTVTf2uIzA/exec";
 const CUSTOM_SOURCE = "自行輸入";
 const FIXED_SOURCES = ["來店", "估價網站", "自買"];
 
