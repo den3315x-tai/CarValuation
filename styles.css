@@ -188,21 +188,21 @@ button.purchase:hover {
 }
 
 .date-filter {
-  display: flex;
+  display: grid;
+  grid-template-columns: 180px 180px auto auto;
   align-items: end;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: end;
   gap: 10px;
 }
 
 .date-filter label {
-  width: 150px;
-  flex: 0 0 150px;
+  width: auto;
+  min-width: 0;
 }
 
 .date-filter button {
   min-height: 42px;
-  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .table-wrap {
@@ -361,15 +361,7 @@ tr.is-purchased button.purchase:hover {
   }
 
   .purchased-section .date-filter {
-    display: grid;
-    grid-template-columns: minmax(180px, 220px) minmax(180px, 220px) auto auto;
     justify-content: start;
-    align-items: end;
-  }
-
-  .purchased-section .date-filter label {
-    width: auto;
-    flex: auto;
   }
 }
 
@@ -412,7 +404,6 @@ tr.is-purchased button.purchase:hover {
 
   .date-filter label {
     width: auto;
-    flex: auto;
   }
 }
 
