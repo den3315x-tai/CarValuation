@@ -335,6 +335,18 @@ tr.is-purchased button.purchase:hover {
   gap: 10px;
 }
 
+@media (max-width: 1400px) {
+  .form-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1180px) {
+  .form-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 980px) {
   .section-title {
     align-items: stretch;
