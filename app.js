@@ -75,6 +75,10 @@ const buyRecordId = document.querySelector("#buyRecordId");
 const buyDate = document.querySelector("#buyDate");
 const buyActualDealPrice = document.querySelector("#buyActualDealPrice");
 const cancelBuyButton = document.querySelector("#cancelBuyButton");
+const purchasedDateFrom = document.querySelector("#purchasedDateFrom");
+const purchasedDateTo = document.querySelector("#purchasedDateTo");
+const clearPurchasedDateFilter = document.querySelector("#clearPurchasedDateFilter");
+const printPurchasedButton = document.querySelector("#printPurchasedButton");
 
 let records = loadLocalRecords();
 
@@ -152,6 +156,35 @@ function normalizeDateText(value) {
   const match = text.match(/^(\d{4})-(\d{2})-(\d{2})T/);
   if (!match) return text;
   return `${Number(match[2])}/${Number(match[3])}`;
+}
+
+function toDateInputValue(value) {
+  if (!value) return "";
+  const text = String(value).trim();
+  const isoDate = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (isoDate) return `${isoDate[1]}-${isoDate[2]}-${isoDate[3]}`;
+
+  const shortDate = text.match(/^(\d{1,2})\/(\d{1,2})$/);
+  if (!shortDate) return "";
+
+  const year = new Date().getFullYear();
+  const month = shortDate[1].padStart(2, "0");
+  const day = shortDate[2].padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function formatDateForDisplay(value) {
+  if (!value) return "";
+  const text = String(value).trim();
+  const isoDate = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!isoDate) return text;
+  return `${Number(isoDate[2])}/${Number(isoDate[3])}`;
+}
+
+function dateValueToNumber(value) {
+  const inputValue = toDateInputValue(value);
+  if (!inputValue) return null;
+  return Number(inputValue.replaceAll("-", ""));
 }
 
 function getSourceLabel(record) {
@@ -264,13 +297,20 @@ function getFormData() {
   }
 
   data.km = normalizeKm(data.km);
+  data.cc = asSheetText(data.cc);
   return data;
 }
 
 function setFormData(record) {
   fields.recordId.value = record.id;
   for (const name of fieldNames) {
-    fields[name].value = name === "km" ? normalizeKm(record[name]) : record[name] || "";
+    if (name === "km") {
+      fields[name].value = normalizeKm(record[name]);
+    } else if (name === "receivedDate") {
+      fields[name].value = toDateInputValue(record[name]);
+    } else {
+      fields[name].value = record[name] || "";
+    }
   }
   updateSourceCustomVisibility();
   submitButton.textContent = "儲存修改";
@@ -303,6 +343,20 @@ function getFilteredRecords() {
 
 function sortRecords(items) {
   return [...items].sort((a, b) => String(b.updatedAt || b.createdAt).localeCompare(String(a.updatedAt || a.createdAt)));
+}
+
+function filterPurchasedByDate(items) {
+  const from = dateValueToNumber(purchasedDateFrom.value);
+  const to = dateValueToNumber(purchasedDateTo.value);
+  if (!from && !to) return items;
+
+  return items.filter((record) => {
+    const boughtDate = dateValueToNumber(record.boughtDate);
+    if (!boughtDate) return false;
+    if (from && boughtDate < from) return false;
+    if (to && boughtDate > to) return false;
+    return true;
+  });
 }
 
 function createCell(value, className = "") {
@@ -339,10 +393,10 @@ function createRecordRow(record) {
   const row = document.createElement("tr");
   row.className = record.isPurchased ? "is-purchased" : "";
   row.append(createCell(getSourceLabel(record)));
-  row.append(createCell(record.receivedDate));
+  row.append(createCell(formatDateForDisplay(record.receivedDate)));
 
   if (record.isPurchased) {
-    row.append(createCell(record.boughtDate));
+    row.append(createCell(formatDateForDisplay(record.boughtDate)));
   }
 
   appendCommonCells(row, record);
@@ -371,20 +425,24 @@ function renderRows(body, items) {
 function render() {
   const filteredRecords = getFilteredRecords();
   const ongoingRecords = filteredRecords.filter((record) => !record.isPurchased);
-  const purchasedRecords = filteredRecords.filter((record) => record.isPurchased);
+  const allPurchasedRecords = filteredRecords.filter((record) => record.isPurchased);
+  const purchasedRecords = filterPurchasedByDate(allPurchasedRecords);
 
   renderRows(ongoingBody, ongoingRecords);
   renderRows(purchasedBody, purchasedRecords);
 
   ongoingCount.textContent = `${ongoingRecords.length} 筆`;
-  purchasedCount.textContent = `${purchasedRecords.length} 筆`;
+  purchasedCount.textContent =
+    purchasedRecords.length === allPurchasedRecords.length
+      ? `${purchasedRecords.length} 筆`
+      : `${purchasedRecords.length} / ${allPurchasedRecords.length} 筆`;
   ongoingEmpty.classList.toggle("is-visible", ongoingRecords.length === 0);
   purchasedEmpty.classList.toggle("is-visible", purchasedRecords.length === 0);
 }
 
 function openBuyDialog(record) {
   buyRecordId.value = record.id;
-  buyDate.value = record.boughtDate || "";
+  buyDate.value = toDateInputValue(record.boughtDate);
   buyActualDealPrice.value = record.actualDealPrice || "";
   buyDialog.showModal();
   buyDate.focus();
@@ -439,6 +497,16 @@ cancelBuyButton.addEventListener("click", () => {
 fields.sourceType.addEventListener("change", updateSourceCustomVisibility);
 resetButton.addEventListener("click", resetForm);
 searchInput.addEventListener("input", render);
+purchasedDateFrom.addEventListener("input", render);
+purchasedDateTo.addEventListener("input", render);
+clearPurchasedDateFilter.addEventListener("click", () => {
+  purchasedDateFrom.value = "";
+  purchasedDateTo.value = "";
+  render();
+});
+printPurchasedButton.addEventListener("click", () => {
+  window.print();
+});
 
 document.addEventListener("click", async (event) => {
   const button = event.target.closest("button[data-action]");

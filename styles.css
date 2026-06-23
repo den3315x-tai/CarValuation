@@ -194,8 +194,9 @@ button.purchase:hover {
 
 .section-title {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
   padding: 0 28px 14px;
 }
 
@@ -206,9 +207,27 @@ button.purchase:hover {
 }
 
 .section-title span {
+  display: inline-block;
+  margin-top: 4px;
   color: var(--muted);
   font-size: 13px;
   font-weight: 700;
+}
+
+.date-filter {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.date-filter label {
+  width: 150px;
+}
+
+.date-filter button {
+  min-height: 42px;
 }
 
 .table-wrap {
@@ -347,6 +366,15 @@ tr.is-purchased button.purchase:hover {
     flex-direction: column;
   }
 
+  .section-title {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .date-filter {
+    justify-content: flex-start;
+  }
+
   .form-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -387,5 +415,80 @@ tr.is-purchased button.purchase:hover {
   .form-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+
+  .date-filter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .date-filter label {
+    width: auto;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .app-shell {
+    width: 100%;
+    padding: 0;
+  }
+
+  .workspace {
+    border: 0;
+    box-shadow: none;
+    min-height: auto;
+  }
+
+  .topbar,
+  .entry-panel,
+  .list-tools,
+  .records-section:not(.purchased-section),
+  .date-filter,
+  .row-actions,
+  .empty-state {
+    display: none !important;
+  }
+
+  .purchased-section {
+    padding: 0;
+    border: 0;
+  }
+
+  .section-title,
+  .table-wrap {
+    padding: 0;
+  }
+
+  .section-title {
+    margin-bottom: 12px;
+  }
+
+  .table-wrap {
+    overflow: visible;
+  }
+
+  table {
+    min-width: 0;
+    width: 100%;
+    font-size: 10px;
+  }
+
+  th,
+  td {
+    padding: 5px 4px;
+    font-size: 10px;
+  }
+
+  th {
+    position: static;
+  }
+
+  .purchased-section th:last-child,
+  .purchased-section td:last-child {
+    display: none;
   }
 }
