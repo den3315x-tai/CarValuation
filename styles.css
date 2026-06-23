@@ -258,6 +258,39 @@ tr.is-purchased td {
   color: #17603a;
 }
 
+tbody tr:nth-child(odd) td {
+  background: #ffffff;
+}
+
+tbody tr:nth-child(even) td {
+  background: #f3f6f9;
+}
+
+.purchased-section tbody tr:nth-child(odd) td {
+  background: #f2fbf5;
+  color: #17603a;
+}
+
+.purchased-section tbody tr:nth-child(even) td {
+  background: #e5f5eb;
+  color: #17603a;
+}
+
+tbody tr td {
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+tbody tr:hover td,
+.purchased-section tbody tr:hover td {
+  background: #dceeff;
+  color: #17324d;
+}
+
+tbody tr:hover td:hover,
+.purchased-section tbody tr:hover td:hover {
+  background: #bcdcff;
+}
+
 tr.is-purchased button.purchase {
   background: #17603a;
   border-color: #17603a;
