@@ -96,6 +96,10 @@ textarea:focus {
   grid-column: span 2;
 }
 
+.full-row {
+  grid-column: 1 / -1;
+}
+
 .form-actions {
   display: flex;
   justify-content: flex-end;
@@ -189,7 +193,7 @@ button.purchase:hover {
 
 .date-filter {
   display: grid;
-  grid-template-columns: 180px 180px auto auto;
+  grid-template-columns: minmax(220px, 260px) minmax(220px, 260px);
   align-items: end;
   justify-content: end;
   gap: 10px;
@@ -203,6 +207,15 @@ button.purchase:hover {
 .date-filter button {
   min-height: 42px;
   white-space: nowrap;
+  justify-self: start;
+}
+
+#clearPurchasedDateFilter {
+  grid-column: 1;
+}
+
+#printPurchasedButton {
+  grid-column: 2;
 }
 
 .table-wrap {
@@ -341,9 +354,9 @@ tr.is-purchased button.purchase:hover {
   }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1366px) {
   .form-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -404,6 +417,10 @@ tr.is-purchased button.purchase:hover {
     grid-column: auto;
   }
 
+  .full-row {
+    grid-column: auto;
+  }
+
   .form-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -411,11 +428,16 @@ tr.is-purchased button.purchase:hover {
 
   .date-filter {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   .date-filter label {
     width: auto;
+  }
+
+  #clearPurchasedDateFilter,
+  #printPurchasedButton {
+    grid-column: auto;
   }
 }
 
