@@ -181,6 +181,14 @@ function formatDateForDisplay(value) {
   return `${Number(isoDate[2])}/${Number(isoDate[3])}`;
 }
 
+function formatFullDateForDisplay(value) {
+  if (!value) return "";
+  const text = String(value).trim();
+  const isoDate = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!isoDate) return text;
+  return `${isoDate[1]}/${isoDate[2]}/${isoDate[3]}`;
+}
+
 function dateValueToNumber(value) {
   const inputValue = toDateInputValue(value);
   if (!inputValue) return null;
@@ -393,7 +401,7 @@ function createRecordRow(record) {
   const row = document.createElement("tr");
   row.className = record.isPurchased ? "is-purchased" : "";
   row.append(createCell(getSourceLabel(record)));
-  row.append(createCell(formatDateForDisplay(record.receivedDate)));
+  row.append(createCell(formatFullDateForDisplay(record.receivedDate)));
 
   if (record.isPurchased) {
     row.append(createCell(formatDateForDisplay(record.boughtDate)));
